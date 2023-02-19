@@ -4,9 +4,6 @@ export const getApi = createApi({
   reducerPath: "getApi",
   baseQuery: fetchBaseQuery({ baseUrl: "https://blog.kata.academy/api/" }),
   endpoints: (builder) => ({
-    getFullPost: builder.query({
-      query: (id) => `articles/${id}`,
-    }),
     addNewUser: builder.mutation({
       query: (body) => ({
         url: "users",
@@ -16,4 +13,4 @@ export const getApi = createApi({
     }),
   }),
 });
-export const { useGetFullPostQuery, useAddNewUserMutation } = getApi;
+export const { useAddNewUserMutation } = getApi;
