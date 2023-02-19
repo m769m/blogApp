@@ -1,7 +1,7 @@
 import React from "react";
+import { useDispatch } from "react-redux";
 import { useParams, useNavigate } from "react-router-dom";
 import { Alert } from "antd";
-import { useDispatch } from "react-redux";
 
 import { editArticle } from "../../redux/slices/listArticle";
 import { ArticleForm } from "../../components/ArticleForm";
@@ -12,15 +12,21 @@ const EditArticle = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { id } = useParams();
+
   const { data, isError } = useGetFullPostQuery(id);
+
   const onSubmit = async (date) => {
     const { tagList } = date;
-    const article = { article: { ...date, tagList: tagList.map((el) => el.tag) } };
+    const filtersTag = tagList.filter((el) => el.tag.trim() !== "");
+    const article = { article: { ...date, tagList: filtersTag.map((el) => el.tag) } };
+
     if (id) {
       dispatch(editArticle({ id, article }));
     }
+
     navigate("/", { replace: true });
   };
+
   if (data) {
     return (
       <div className={classes.editArticleContainer}>
@@ -29,6 +35,7 @@ const EditArticle = () => {
       </div>
     );
   }
+
   return <div>{isError && <Alert message="Не удалось изменить пост" type="error" />}</div>;
 };
 

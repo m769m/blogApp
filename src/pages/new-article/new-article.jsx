@@ -10,12 +10,16 @@ import classes from "./new-article.module.scss";
 const NewArticle = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
   const onSubmit = async (date) => {
     const { tagList } = date;
-    const data = { article: { ...date, tagList: tagList.map((el) => el.tag) } };
+    const filtersTag = tagList.filter((el) => el.tag.trim() !== "");
+    const data = { article: { ...date, tagList: filtersTag.map((el) => el.tag) } };
+
     dispatch(createArticle(data));
     navigate("/", { replace: true });
   };
+
   return (
     <div className={classes.editArticleContainer}>
       <h2 className={classes.title}>Create new article</h2>

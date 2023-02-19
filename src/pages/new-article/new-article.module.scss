@@ -6,11 +6,13 @@
   filter: drop-shadow(0px 4px 12px rgba(0, 0, 0, 0.15));
   margin: 24px auto;
 }
+
 .title {
   margin: 0 0 21px;
   font-size: 1.67em;
   text-align: center;
 }
+
 .editArticleContainer {
   @extend %container;
   padding: 48px 32px;
