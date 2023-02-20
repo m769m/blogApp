@@ -3,9 +3,9 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { Button, Popconfirm } from "antd";
 
-import { deleteArticle } from "../../redux/slices/listArticle";
+import { deleteArticle } from "../../redux/slices/list-article";
 
-import ModalBtnStyle from "./ModalBtn.module.scss";
+import classes from "./ModalButton.module.scss";
 
 const ModalBtn = () => {
   const dispatch = useDispatch();
@@ -31,7 +31,7 @@ const ModalBtn = () => {
       okText="Yes"
       cancelText="No"
     >
-      <Button className={ModalBtnStyle.deleteBtn} type="primary">
+      <Button className={classes.deleteBtn} type="primary">
         Delete
       </Button>
     </Popconfirm>

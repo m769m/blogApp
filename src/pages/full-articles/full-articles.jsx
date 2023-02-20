@@ -5,12 +5,12 @@ import ReactMarkdown from "react-markdown";
 import { format } from "date-fns";
 import { Alert, Spin } from "antd";
 
-import { getOneArticle, favorite, unFavorite } from "../../redux/slices/listArticle";
-import vector from "../../assets/images/Vector.svg";
-import heart from "../../assets/images/Heart.svg";
-import { ModalBtn } from "../../components/ModalBtn";
+import { getOneArticle, favorite, unFavorite } from "../../redux/slices/list-article";
+import Vector from "../../assets/images/Vector.svg";
+import Heart from "../../assets/images/Heart.svg";
+import { ModalButton } from "../../components/ModalButton";
 
-import FullArticlesStyles from "./full-articles.module.scss";
+import classes from "./full-articles.module.scss";
 
 const FullArticles = () => {
   const dispatch = useDispatch();
@@ -51,26 +51,22 @@ const FullArticles = () => {
     const isOwnArticle = author.username === user?.username;
 
     return (
-      <div className={FullArticlesStyles.list}>
-        <div className={FullArticlesStyles.block}>
-          <div className={FullArticlesStyles.title}>
-            <h3 className={FullArticlesStyles.text}>{title}</h3>
+      <div className={classes.list}>
+        <div className={classes.block}>
+          <div className={classes.title}>
+            <h3 className={classes.text}>{title}</h3>
 
-            <button
-              onClick={favorited ? unFavoriteClick : favoriteClick}
-              className={FullArticlesStyles.btnFull}
-              type="button"
-            >
-              <img src={favorited && token ? heart : vector} alt="like" />
+            <button onClick={favorited ? unFavoriteClick : favoriteClick} className={classes.btnFull} type="button">
+              <img src={favorited && token ? Heart : Vector} alt="like" />
             </button>
 
             {favoritesCount}
           </div>
 
-          <div className={FullArticlesStyles.tags}>
+          <div className={classes.tags}>
             {tagList.map((tag, index) => (
               // eslint-disable-next-line react/no-array-index-key
-              <span key={index} className={FullArticlesStyles.tag}>
+              <span key={index} className={classes.tag}>
                 {tag}
               </span>
             ))}
@@ -80,23 +76,23 @@ const FullArticles = () => {
           <ReactMarkdown children={description} />
         </div>
 
-        <div className={FullArticlesStyles.authFull}>
-          <div className={FullArticlesStyles.auth}>
-            <div className={FullArticlesStyles.userInfo}>
-              <span className={FullArticlesStyles.userInfoText}>{author.username}</span>
-              <span className={FullArticlesStyles.userInfoText}>{format(new Date(createdAt), "d MMMM, Y")} </span>
+        <div className={classes.authFull}>
+          <div className={classes.auth}>
+            <div className={classes.userInfo}>
+              <span className={classes.userInfoText}>{author.username}</span>
+              <span className={classes.userInfoText}>{format(new Date(createdAt), "d MMMM, Y")} </span>
             </div>
 
-            <img className={FullArticlesStyles.imageFull} src={author.image} alt="avatar" />
+            <img className={classes.imageFull} src={author.image} alt="avatar" />
           </div>
 
           <div>
             {user && isOwnArticle && (
-              <div className={FullArticlesStyles.btns}>
-                <ModalBtn />
+              <div className={classes.btns}>
+                <ModalButton />
 
                 <Link to={`/articles/${slug}/edit`}>
-                  <button type="button" className={FullArticlesStyles.edit}>
+                  <button type="button" className={classes.edit}>
                     Edit
                   </button>
                 </Link>

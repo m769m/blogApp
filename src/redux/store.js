@@ -1,9 +1,9 @@
 import { configureStore, combineReducers } from "@reduxjs/toolkit";
 import { setupListeners } from "@reduxjs/toolkit/query";
 
-import { getApi } from "./getApi";
+import { getApi } from "./get-api";
 import saveUser from "./slices/user";
-import listArticle from "./slices/listArticle";
+import listArticle from "./slices/list-article";
 
 const rootReducer = combineReducers({
   [getApi.reducerPath]: getApi.reducer,

@@ -4,11 +4,11 @@ import { useSelector, useDispatch } from "react-redux";
 import { format } from "date-fns";
 import { Alert } from "antd";
 
-import vector from "../../assets/images/Vector.svg";
-import heart from "../../assets/images/Heart.svg";
-import { favorite, unFavorite } from "../../redux/slices/listArticle";
+import Vector from "../../assets/images/Vector.svg";
+import Heart from "../../assets/images/Heart.svg";
+import { favorite, unFavorite } from "../../redux/slices/list-article";
 
-import CardStyles from "./ArticlesCard.module.scss";
+import classes from "./ArticlesCard.module.scss";
 
 const ArticlesCard = ({ author, slug, body, title, updatedAt, favorited, favoritesCount, tagList }) => {
   const { isError } = useSelector((state) => state.listArticle);
@@ -33,15 +33,15 @@ const ArticlesCard = ({ author, slug, body, title, updatedAt, favorited, favorit
   const { image, username } = author;
 
   return (
-    <li className={CardStyles.list}>
-      <div className={CardStyles.block}>
-        <div className={CardStyles.title}>
+    <li className={classes.list}>
+      <div className={classes.block}>
+        <div className={classes.title}>
           <Link to={`/articles/${slug}`}>
-            <h3 className={CardStyles.text}>{title}</h3>
+            <h3 className={classes.text}>{title}</h3>
           </Link>
 
-          <button onClick={favorited ? unFavoriteClick : favoriteClick} className={CardStyles.btn} type="button">
-            <img src={favorited ? heart : vector} alt="like" />
+          <button onClick={favorited ? unFavoriteClick : favoriteClick} className={classes.btn} type="button">
+            <img src={favorited ? Heart : Vector} alt="like" />
           </button>
 
           {isError && <Alert message="Ошибка" type="error" />}
@@ -49,25 +49,25 @@ const ArticlesCard = ({ author, slug, body, title, updatedAt, favorited, favorit
           {favoritesCount}
         </div>
 
-        <div className={CardStyles.tags}>
+        <div className={classes.tags}>
           {tagList.map((tag, index) => (
             // eslint-disable-next-line react/no-array-index-key
-            <span key={index} className={CardStyles.tag}>
+            <span key={index} className={classes.tag}>
               {tag}
             </span>
           ))}
         </div>
 
-        <p className={CardStyles.par}>{body}</p>
+        <p className={classes.par}>{body}</p>
       </div>
 
-      <div className={CardStyles.auth}>
-        <div className={CardStyles.userInfo}>
-          <span className={CardStyles.userInfoText}>{username}</span>
+      <div className={classes.auth}>
+        <div className={classes.userInfo}>
+          <span className={classes.userInfoText}>{username}</span>
           <span>{format(new Date(updatedAt), "d MMMM, Y")} </span>
         </div>
 
-        <img className={CardStyles.authImage} src={image} alt="avatar" />
+        <img className={classes.authImage} src={image} alt="avatar" />
       </div>
     </li>
   );

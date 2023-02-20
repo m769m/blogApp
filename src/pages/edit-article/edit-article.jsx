@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams, useNavigate } from "react-router-dom";
 import { Alert } from "antd";
 
-import { editArticle, getOneArticle } from "../../redux/slices/listArticle";
+import { editArticle, getOneArticle } from "../../redux/slices/list-article";
 import { ArticleForm } from "../../components/ArticleForm";
 import classes from "../new-article/new-article.module.scss";
 

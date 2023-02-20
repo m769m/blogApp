@@ -3,11 +3,11 @@ import { Outlet } from "react-router-dom";
 
 import Header from "../Header/Header";
 
-import LayoutStyles from "./Layout.module.scss";
+import classes from "./Layout.module.scss";
 
 const Layout = () => {
   return (
-    <div className={LayoutStyles.wrapper}>
+    <div className={classes.wrapper}>
       <Header />
       <main>
         <Outlet />

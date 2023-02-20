@@ -2,20 +2,18 @@ import React, { useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
-import { getUserInfo } from "../redux/slices/user";
-import { Layout } from "../components/Layout";
-import { Home } from "../pages/home";
-import { FullArticles } from "../pages/full-articles";
-import { SignUp } from "../pages/sign-up";
-import { SignIn } from "../pages/sign-in";
-import { NewArticle } from "../pages/new-article";
-import { EditProfile } from "../pages/edit-profile";
-import { EditArticle } from "../pages/edit-article";
-import UserAuthorized from "../hoc/UserAuthorized";
-import RequireAuth from "../hoc/RequireAuth";
+import { getUserInfo } from "./redux/slices/user";
+import { Layout } from "./components/Layout";
+import { Home } from "./pages/home";
+import { FullArticles } from "./pages/full-articles";
+import { SignUp } from "./pages/sign-up";
+import { SignIn } from "./pages/sign-in";
+import { NewArticle } from "./pages/new-article";
+import { EditProfile } from "./pages/edit-profile";
+import { EditArticle } from "./pages/edit-article";
+import RequireAuth from "./hoc/RequireAuth";
 
 import "antd/dist/antd.min.css";
-import "./App.module.scss";
 
 function App() {
   const dispatch = useDispatch();
@@ -37,18 +35,18 @@ function App() {
         <Route
           path="/sign-up"
           element={
-            <UserAuthorized>
+            <RequireAuth typePage="SIGN">
               <SignUp />
-            </UserAuthorized>
+            </RequireAuth>
           }
         />
 
         <Route
           path="/sign-in"
           element={
-            <UserAuthorized>
+            <RequireAuth typePage="SIGN">
               <SignIn />
-            </UserAuthorized>
+            </RequireAuth>
           }
         />
 

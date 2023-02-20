@@ -2,9 +2,9 @@ import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 
-import { useAddNewUserMutation } from "../../redux/getApi";
+import { useAddNewUserMutation } from "../../redux/get-api";
 
-import SignUpStyles from "./sign-up.module.scss";
+import classes from "./sign-up.module.scss";
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -19,15 +19,15 @@ const SignUp = () => {
   } = useForm({
     mode: "onBlur",
   });
+
   useEffect(() => {
-    // @ts-ignore
     if (error?.data?.errors?.email) {
       setError("email", {
         type: "server",
         message: "Email is already taken.",
       });
     }
-    // @ts-ignore
+
     if (error?.data?.errors?.username) {
       setError("username", {
         type: "server",
@@ -35,6 +35,7 @@ const SignUp = () => {
       });
     }
   }, [error]);
+
   useEffect(() => {
     if (data) {
       navigate("/sign-in", { replace: true });
@@ -43,19 +44,22 @@ const SignUp = () => {
 
   const onSubmit = async (date) => {
     const { username, email, password } = date;
+
     if (date) {
       await addUser({ user: { username, email, password } }).unwrap();
       reset();
     }
   };
+
   return (
-    <div className={SignUpStyles.wrapper}>
-      <form className={SignUpStyles.wr} onSubmit={handleSubmit(onSubmit)}>
-        <h2 className={SignUpStyles.title}>Create new account</h2>
-        <label className={SignUpStyles.label}>
+    <div className={classes.wrapper}>
+      <form className={classes.wr} onSubmit={handleSubmit(onSubmit)}>
+        <h2 className={classes.title}>Create new account</h2>
+
+        <label className={classes.label}>
           Username
           <input
-            className={errors.username && SignUpStyles.inputError}
+            className={errors.username && classes.inputError}
             type="text"
             {...register("username", {
               required: "Username is required",
@@ -71,10 +75,12 @@ const SignUp = () => {
             placeholder="Username"
           />
         </label>
+
         {errors.username && (
-          <span className={SignUpStyles.error}>{errors.username?.message || "Errors, please reconnect page"}</span>
+          <span className={classes.error}>{errors.username?.message || "Errors, please reconnect page"}</span>
         )}
-        <label className={SignUpStyles.label}>
+
+        <label className={classes.label}>
           Email address
           <input
             type="text"
@@ -88,10 +94,12 @@ const SignUp = () => {
             placeholder="Email address"
           />
         </label>
+
         {errors.email && (
-          <span className={SignUpStyles.error}>{errors.email?.message || "Errors, please reconnect page"}</span>
+          <span className={classes.error}>{errors.email?.message || "Errors, please reconnect page"}</span>
         )}
-        <label className={SignUpStyles.label}>
+
+        <label className={classes.label}>
           Password
           <input
             type="password"
@@ -109,10 +117,12 @@ const SignUp = () => {
             placeholder="Password"
           />
         </label>
+
         {errors.password && (
-          <span className={SignUpStyles.error}>{errors.password?.message || "Errors, please reconnect page"}</span>
+          <span className={classes.error}>{errors.password?.message || "Errors, please reconnect page"}</span>
         )}
-        <label className={SignUpStyles.label}>
+
+        <label className={classes.label}>
           Repeat Password
           <input
             type="password"
@@ -128,23 +138,26 @@ const SignUp = () => {
             placeholder="Password"
           />
         </label>
+
         {errors.repeatPassword && (
-          <span className={SignUpStyles.error}>
-            {errors.repeatPassword?.message || "Errors, please reconnect page"}
-          </span>
+          <span className={classes.error}>{errors.repeatPassword?.message || "Errors, please reconnect page"}</span>
         )}
-        <label className={SignUpStyles.lastLabel}>
+
+        <label className={classes.lastLabel}>
           <input
             {...register("agreement", {
               required: "You must agree to the terms",
             })}
             type="checkbox"
           />
-          <span className={SignUpStyles.checkText}>I agree to the processing of my personal information</span>
+          <span className={classes.checkText}>I agree to the processing of my personal information</span>
         </label>
-        {errors.agreement && <div className={SignUpStyles.error}>{errors.agreement.message}</div>}
+
+        {errors.agreement && <div className={classes.error}>{errors.agreement.message}</div>}
+
         <button type="submit">Create</button>
-        <p className={SignUpStyles.textParagraph}>
+
+        <p className={classes.textParagraph}>
           Already have an account? <Link to="/sign-in">Sign In.</Link>
         </p>
       </form>

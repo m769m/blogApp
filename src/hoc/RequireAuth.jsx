@@ -1,12 +1,18 @@
 import React from "react";
 import { useLocation, Navigate } from "react-router-dom";
 
-const RequireAuth = ({ children }) => {
+const RequireAuth = ({ children, typePage = "CONTENT" }) => {
   const location = useLocation();
   const token = localStorage.getItem("token");
 
-  if (!token) {
-    return <Navigate to="/sign-in" state={{ from: location }} />;
+  if (typePage === "CONTENT") {
+    if (!token) {
+      return <Navigate to="/sign-in" state={{ from: location }} />;
+    }
+  } else if (typePage === "SIGN") {
+    if (token) {
+      return <Navigate to="/" replace />;
+    }
   }
 
   return children;

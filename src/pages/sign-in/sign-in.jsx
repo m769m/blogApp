@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 import { authUser } from "../../redux/slices/user";
-import SignInStyles from "../sign-up/sign-up.module.scss";
+import classes from "../sign-up/sign-up.module.scss";
 
 const SignIn = () => {
   const navigate = useNavigate();
@@ -19,11 +19,13 @@ const SignIn = () => {
   } = useForm({
     mode: "onBlur",
   });
+
   useEffect(() => {
     if (token) {
       localStorage.setItem("token", token);
       navigate("/", { replace: true });
     }
+
     if (error) {
       setError("password", {
         type: "server",
@@ -31,18 +33,22 @@ const SignIn = () => {
       });
     }
   }, [token, error]);
+
   const onSubmit = async (date) => {
     const { email, password } = date;
+
     if (date) {
       dispatch(authUser({ user: { email, password } }));
       reset();
     }
   };
+
   return (
-    <div className={SignInStyles.wrapper}>
-      <form className={SignInStyles.wr} onSubmit={handleSubmit(onSubmit)}>
-        <h2 className={SignInStyles.title}>Sign In</h2>
-        <label className={SignInStyles.label}>
+    <div className={classes.wrapper}>
+      <form className={classes.wr} onSubmit={handleSubmit(onSubmit)}>
+        <h2 className={classes.title}>Sign In</h2>
+
+        <label className={classes.label}>
           Email address
           <input
             type="text"
@@ -56,10 +62,12 @@ const SignIn = () => {
             placeholder="Email address"
           />
         </label>
+
         {errors.email && (
-          <span className={SignInStyles.error}>{errors.email?.message || "Errors, please reconnect page"}</span>
+          <span className={classes.error}>{errors.email?.message || "Errors, please reconnect page"}</span>
         )}
-        <label className={SignInStyles.label}>
+
+        <label className={classes.label}>
           Password
           <input
             type="password"
@@ -77,11 +85,14 @@ const SignIn = () => {
             placeholder="Password"
           />
         </label>
+
         {errors.password && (
-          <span className={SignInStyles.error}>{errors.password?.message || "Errors, please reconnect page"}</span>
+          <span className={classes.error}>{errors.password?.message || "Errors, please reconnect page"}</span>
         )}
+
         <button type="submit">Login</button>
-        <p className={SignInStyles.textParagraph}>
+
+        <p className={classes.textParagraph}>
           Don’t have an account? <Link to="/sign-up">Sign Up.</Link>
         </p>
       </form>

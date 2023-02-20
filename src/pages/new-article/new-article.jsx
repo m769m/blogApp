@@ -2,7 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
-import { createArticle } from "../../redux/slices/listArticle";
+import { createArticle } from "../../redux/slices/list-article";
 import { ArticleForm } from "../../components/ArticleForm";
 
 import classes from "./new-article.module.scss";

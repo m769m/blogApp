@@ -1,17 +1,16 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
+import axios from "../../services/index";
 import { saveUserInfo } from "../../redux/slices/user";
 
-import EditStyles from "./edit-profile.module.scss";
+import classes from "./edit-profile.module.scss";
 
 const EditProfile = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const token = localStorage.getItem("token");
   const {
     register,
     handleSubmit,
@@ -21,23 +20,20 @@ const EditProfile = () => {
   } = useForm({
     mode: "onBlur",
   });
+
   const onSubmit = async (user) => {
     if (user) {
       try {
-        const { data } = await axios.put(
-          "https://blog.kata.academy/api/user",
-          {
-            user,
-          },
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          },
-        );
+        const { data } = await axios.put("/user", {
+          user,
+        });
+
         reset();
+
         dispatch(saveUserInfo(data.user.username));
+
         navigate("/", { replace: true });
+
         return data;
       } catch (err) {
         if (err?.response?.data?.errors)
@@ -48,14 +44,16 @@ const EditProfile = () => {
       }
     }
   };
+
   return (
-    <div className={EditStyles.wrapform}>
-      <form className={EditStyles.form} onSubmit={handleSubmit(onSubmit)}>
-        <h2 className={EditStyles.titleEdit}>Edit Profile</h2>
-        <label className={EditStyles.labelEdit}>
+    <div className={classes.wrapform}>
+      <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
+        <h2 className={classes.titleEdit}>Edit Profile</h2>
+
+        <label className={classes.labelEdit}>
           Username
           <input
-            className={errors.username && EditStyles.errorInput}
+            className={errors.username && classes.errorInput}
             type="text"
             {...register("username", {
               required: "Username is required",
@@ -71,13 +69,15 @@ const EditProfile = () => {
             placeholder="Username"
           />
         </label>
+
         {errors.username && (
-          <span className={EditStyles.errorEdit}>{errors.username?.message || "Errors, please reconnect page"}</span>
+          <span className={classes.errorEdit}>{errors.username?.message || "Errors, please reconnect page"}</span>
         )}
-        <label className={EditStyles.labelEdit}>
+
+        <label className={classes.labelEdit}>
           Email address
           <input
-            className={errors.email && EditStyles.errorInput}
+            className={errors.email && classes.errorInput}
             type="text"
             {...register("email", {
               required: "Email is required",
@@ -89,13 +89,15 @@ const EditProfile = () => {
             placeholder="Email address"
           />
         </label>
+
         {errors.email && (
-          <span className={EditStyles.errorEdit}>{errors.email?.message || "Errors, please reconnect page"}</span>
+          <span className={classes.errorEdit}>{errors.email?.message || "Errors, please reconnect page"}</span>
         )}
-        <label className={EditStyles.labelEdit}>
+
+        <label className={classes.labelEdit}>
           New password
           <input
-            className={errors.password && EditStyles.errorInput}
+            className={errors.password && classes.errorInput}
             type="password"
             {...register("password", {
               required: "Password is required",
@@ -111,13 +113,15 @@ const EditProfile = () => {
             placeholder="New password"
           />
         </label>
+
         {errors.password && (
-          <span className={EditStyles.errorEdit}>{errors.password?.message || "Errors, please reconnect page"}</span>
+          <span className={classes.errorEdit}>{errors.password?.message || "Errors, please reconnect page"}</span>
         )}
-        <label className={EditStyles.labelEdit}>
+
+        <label className={classes.labelEdit}>
           Avatar image (url)
           <input
-            className={errors.avatar && EditStyles.errorInput}
+            className={errors.avatar && classes.errorInput}
             type="text"
             {...register("avatar", {
               required: "Avatar image is required",
@@ -129,12 +133,15 @@ const EditProfile = () => {
             placeholder="Avatar image"
           />
         </label>
+
         {errors.avatar && (
-          <span className={EditStyles.errorEdit}>{errors.avatar?.message || "Errors, please reconnect page"}</span>
+          <span className={classes.errorEdit}>{errors.avatar?.message || "Errors, please reconnect page"}</span>
         )}
+
         <button type="submit">Save</button>
       </form>
     </div>
   );
 };
+
 export default EditProfile;

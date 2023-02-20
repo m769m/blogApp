@@ -2,10 +2,10 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Alert, Pagination, Spin } from "antd";
 
-import { setPageNumber, getArticles } from "../../redux/slices/listArticle";
+import { setPageNumber, getArticles } from "../../redux/slices/list-article";
 import { ArticlesCard } from "../../components/ArticlesCard";
 
-import HomeStyles from "./home.module.scss";
+import classes from "./home.module.scss";
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -47,7 +47,7 @@ const Home = () => {
         pageSize={5}
         onChange={handleChangePage}
         showSizeChanger={false}
-        className={HomeStyles.paginate}
+        className={classes.paginate}
       />
     </ul>
   );
