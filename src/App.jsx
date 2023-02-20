@@ -3,7 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
 import { getUserInfo } from "./redux/slices/user";
-import { Layout } from "./components/Layout";
+import { Layout } from "./layout";
 import { Home } from "./pages/home";
 import { FullArticles } from "./pages/full-articles";
 import { SignUp } from "./pages/sign-up";
